@@ -5,8 +5,16 @@ input {
     }
 }
 filter {
-if [host] != "0.0.0.0" {
+if [host] == "94.100.88.238" {
 mutate {
+    add_tag => [nnmsk]
+    remove_field => ["_index"]
+    remove_tag => ["_grokparsefailure_sysloginput"]
+	}
+    }
+if [host] == "172.16.11.1" {
+mutate {
+    add_tag => [office]
     remove_field => ["_index"]
     remove_tag => ["_grokparsefailure_sysloginput"]
 	}
@@ -17,3 +25,4 @@ output {  elasticsearch {
             index    => "mikrotik-%{+YYYY.MM}"
         }
 }
+
